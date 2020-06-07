@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
+#include <time.h>
 //유저 데이터///////////////////////
 #define name_length 20
 typedef struct
@@ -14,11 +15,24 @@ typedef struct
 //database.c
 #define user_id_bit_size 8
 //최대 수용 가능 캐릭터 2^8 = 256개
-#define user_size 3
+#define user_size 256
 #define data_type_number 4
-//id(bit), name(string), level(int), type(int)
+//id(int), name(string), level(int), type(int)
+//초기 데이터 베이스 생성
+void userdata_new_txt();
+
+void userdata_save(character data);
+//중복이름 테스트 return 접촉오류 0, 성공 1, 실패 -1
+int userdata_name_test(char name[name_length]);
+//중복없는 아이디 생성 return 아이디
+int userdata_id_gen();
+//인풋 이름, 아웃풋 character
+character userdata_load_char(char name[name_length]);
+//현재 데이터베이스의 id목록 입력 return 중복없는 id
+unsigned int random_id(unsigned int array[user_size]);
 
 //char_src.c//////////////////////////
 character new_or_load_char();
-//header.h////////////////////////////
-int userdata_save(character data);
+
+//start.c//////////////////////////////
+void start_setting();
