@@ -36,3 +36,16 @@ character new_or_load_char();
 
 //start.c//////////////////////////////
 void start_setting();
+
+//scene.c//////////////////////////////
+
+//신 선택 화면(character)
+void choice_scene(character data);
+//여관 화면(character)
+void motel_scene(character data);
+//잡화점 화면(character)
+void variety_store_scene(character data);
+//전투 화면(character)
+void stage_scene(character data);
+//종료 화면(character)
+void exit_scene(character data);
