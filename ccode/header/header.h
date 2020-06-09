@@ -13,10 +13,10 @@ typedef struct
     unsigned int type;
 } character;
 //database.c
-#define user_id_bit_size 8
+#define databit_size 8
 //최대 수용 가능 캐릭터 2^8 = 256개
+//데이터 크기 = 2^8 =255까지 수용
 #define user_size 256
-#define data_type_number 4
 //id(int), name(string), level(int), type(int)
 //초기 데이터 베이스 생성
 void userdata_new_txt();

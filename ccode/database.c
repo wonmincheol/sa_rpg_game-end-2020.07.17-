@@ -5,6 +5,8 @@ char database_name[] = "userdata.txt";
 FILE *f;
 int id = -1;
 
+void *int_to_bit(int value, char array[]);
+
 void userdata_save(character data)
 {
     if ((f = fopen(database_name, "a")) == NULL)
@@ -107,25 +109,32 @@ unsigned int random_id(unsigned int array[user_size])
     return num;
 }
 
-// unsigned char *int_to_bit(unsigned int num)
+// void *int_to_bit(int value, char res[databit_size + 1])
 // {
-//     unsigned char array[user_id_bit_size] = {0};
 //     int pos = 0;
-//     while (num)
+//     for (int i = 0; i < databit_size + 2; i++)
 //     {
-//         array[pos] = num % 2;
-//         num /= 2;
+//         if (i == (databit_size + 1))
+//         {
+//             res[i] = '\0';
+//         }
+//         else
+//         {
+//             res[i] = '0';
+//         }
+//     }
+//     while (value)
+//     {
+//         if ((value % 2) == 1)
+//         {
+//             res[databit_size - 1 - pos] = '1';
+//         }
+//         else
+//         {
+//             res[databit_size - 1 - pos] = '0';
+//         }
+//         value = value / 2;
 //         pos++;
 //     }
-//     return array;
-// }
-// unsigned int bit_to_int(unsigned char bit_array[user_id_bit_size])
-// {
-//     int pos = 0;
-//     unsigned int id = 0;
-//     while (user_id_bit_size > pos)
-//     {
-//         id += bit_array[pos] * pow(2, pos);
-//     }
-//     return id;
+//     //return res;
 // }
