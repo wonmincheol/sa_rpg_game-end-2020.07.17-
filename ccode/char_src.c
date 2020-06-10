@@ -30,7 +30,7 @@ character new_or_load_char()
         data.id = userdata_id_gen();
         data.level = 1;
         //test
-        data.type = -1;
+        data.type = 99;
         userdata_save(data);
     }
     else if ((0 == strcmp(select, "yes")))
@@ -42,6 +42,10 @@ character new_or_load_char()
         printf("name : %s\n", data.name);
         printf("level : %d\n", data.level);
         printf("type : %d\n", data.type);
+        printf("레벨 변경 : ");
+        scanf(" %d", &data.level);
+        printf("debug : %d", data.level);
+        userdata_save(data);
     }
     return data;
 }

@@ -5,19 +5,80 @@ char database_name[] = "userdata.txt";
 FILE *f;
 int id = -1;
 
-void *int_to_bit(int value, char array[]);
+void resave(character data);
 
 void userdata_save(character data)
 {
-    if ((f = fopen(database_name, "a")) == NULL)
+    character res;
+    int swit = 0;
+    long ptr = 0;
+    FILE *fileres = 0;
+    if ((f = fopen(database_name, "r+")) == NULL)
     {
         //파일 접촉 오류
-        printf("error");
+        if ((fileres = fopen(database_name, "w+")) == NULL)
+        {
+            printf("gene_error");
+        }
+        fclose(fileres);
+        if ((f = fopen(database_name, "r+")) == NULL)
+        {
+            printf("gene_error2");
+        }
     }
     //게임 중도 저장시 변경방안 추가
-    fprintf(f, "%d %s %d %d\n", data.id, data.name, data.level, data.type);
+    fseek(f, 0, SEEK_SET);
+    while (!feof(f))
+    {
+        ptr = ftell(f);
+        fscanf(f, "%d %d %d %s", &res.id, &res.level, &res.type, &res.name);
+        if (res.id == data.id)
+        {
+            ptr = ftell(f) - ptr;
+            swit = 1;
+            printf("out");
+            break;
+        }
+        printf("in\n");
+    }
+    if (swit == 1)
+    {
+        fseek(f, -ptr, SEEK_CUR);
+        fprintf(f, "\n%d %d %d %s", data.id, data.level, data.type, data.name);
+    }
+    else
+    {
+        fseek(f, 0, SEEK_END);
+        fprintf(f, "%d %d %d %s\n", data.id, data.level, data.type, data.name);
+    }
     fclose(f);
 }
+
+void resave(character data)
+{
+    character res;
+    long ptr = 0;
+    int pos = 0;
+    if ((f = fopen(database_name, "r+")) == NULL)
+    {
+        //파일 접촉 오류
+        printf("에러");
+    }
+    while (!feof(f))
+    {
+        ptr = ftell(f);
+        fscanf(f, "%d %d %d %s", &res.id, &res.level, &res.type, &res.name);
+        if (res.id == data.id)
+        {
+            ptr = ftell(f) - ptr;
+            fseek(f, -ptr, SEEK_CUR);
+            fprintf(f, "\n%d %d %d %s", data.id, data.level, data.type, data.name);
+            break;
+        }
+    }
+    fclose(f);
+}
+
 int userdata_name_test(char name[name_length])
 {
     if ((f = fopen(database_name, "r")) == NULL)
@@ -28,7 +89,7 @@ int userdata_name_test(char name[name_length])
     character res;
     while (!feof(f))
     {
-        fscanf(f, "%d %s %d %d", &res.id, &res.name, &res.level, &res.type);
+        fscanf(f, "%d %d %d %s", &res.id, &res.level, &res.type, &res.name);
         if ((strcmp(name, res.name)) == 0)
         {
             return -1;
@@ -50,7 +111,7 @@ int userdata_id_gen()
     unsigned int pos = 0;
     while (!feof(f) && (pos < 256))
     {
-        fscanf(f, "%d %s %d %d", &res.id, &res.name, &res.level, &res.type);
+        fscanf(f, "%d %d %d %s", &res.id, &res.level, &res.type, &res.name);
         id_array[pos] = res.id;
         pos++;
     }
@@ -68,7 +129,7 @@ character userdata_load_char(char name[name_length])
     }
     while (!feof(f))
     {
-        fscanf(f, "%d %s %d %d", &res.id, &res.name, &res.level, &res.type);
+        fscanf(f, "%d %d %d %s", &res.id, &res.level, &res.type, &res.name);
         if ((strcmp(res.name, name) == 0))
         {
             data.id = res.id;
@@ -109,32 +170,33 @@ unsigned int random_id(unsigned int array[user_size])
     return num;
 }
 
-// void *int_to_bit(int value, char res[databit_size + 1])
+// char *int_to_bit(int value)
 // {
+//     static char array[databit_size + 1] = {0};
 //     int pos = 0;
 //     for (int i = 0; i < databit_size + 2; i++)
 //     {
-//         if (i == (databit_size + 1))
+//         if (i == databit_size)
 //         {
-//             res[i] = '\0';
+//             array[i] = '\0';
 //         }
 //         else
 //         {
-//             res[i] = '0';
+//             array[i] = '0';
 //         }
 //     }
 //     while (value)
 //     {
 //         if ((value % 2) == 1)
 //         {
-//             res[databit_size - 1 - pos] = '1';
+//             array[databit_size - 1 - pos] = '1';
 //         }
 //         else
 //         {
-//             res[databit_size - 1 - pos] = '0';
+//             array[databit_size - 1 - pos] = '0';
 //         }
-//         value = value / 2;
 //         pos++;
+//         value /= 2;
 //     }
-//     //return res;
+//     return array;
 // }
