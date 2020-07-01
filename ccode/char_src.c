@@ -13,6 +13,7 @@ character new_or_load_char()
         }
         else
         {
+            remove_data(data);
             printf("잘못된 입력입니다.\n");
         }
     }

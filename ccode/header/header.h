@@ -31,7 +31,7 @@ character userdata_load_char(char name[name_length]);
 //현재 데이터베이스의 id목록 입력 return 중복없는 id
 unsigned int random_id(unsigned int array[user_size]);
 
-void resave(character data);
+void remove_data(character data);
 
 //char_src.c//////////////////////////
 character new_or_load_char();

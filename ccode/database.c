@@ -1,11 +1,11 @@
 #include "header/header.h"
-//ë°ì´í„° ìœ í˜•
-//id, ì´ë¦„, level, type
+//µ¥ÀÌÅÍ À¯Çü
+//id, ÀÌ¸§, level, type
 char database_name[] = "userdata.txt";
 FILE *f;
 int id = -1;
 
-void resave(character data);
+void remove_data(character data);
 
 void userdata_save(character data)
 {
@@ -15,7 +15,7 @@ void userdata_save(character data)
     FILE *fileres = 0;
     if ((f = fopen(database_name, "r+")) == NULL)
     {
-        //íŒŒì¼ ì ‘ì´‰ ì˜¤ë¥˜
+        //ÆÄÀÏ Á¢ÃË ¿À·ù
         if ((fileres = fopen(database_name, "w+")) == NULL)
         {
             printf("gene_error");
@@ -26,12 +26,12 @@ void userdata_save(character data)
             printf("gene_error2");
         }
     }
-    //ê²Œì„ ì¤‘ë„ ì €ì¥ì‹œ ë³€ê²½ë°©ì•ˆ ì¶”ê°€
+    //°ÔÀÓ Áßµµ ÀúÀå½Ã º¯°æ¹æ¾È Ãß°¡
     fseek(f, 0, SEEK_SET);
     while (!feof(f))
     {
         ptr = ftell(f);
-        fscanf(f, "%d %d %d %s", &res.id, &res.level, &res.type, &res.name);
+        fscanf(f, "%d %d %d %s\n", &res.id, &res.level, &res.type, &res.name);
         if (res.id == data.id)
         {
             ptr = ftell(f) - ptr;
@@ -44,7 +44,7 @@ void userdata_save(character data)
     if (swit == 1)
     {
         fseek(f, -ptr, SEEK_CUR);
-        fprintf(f, "\n%d %d %d %s", data.id, data.level, data.type, data.name);
+        fprintf(f, "%d %d %d %s\n", data.id, data.level, data.type, data.name);
     }
     else
     {
@@ -54,25 +54,18 @@ void userdata_save(character data)
     fclose(f);
 }
 
-void resave(character data)
+void remove_data(character data)
 {
     character res;
-    long ptr = 0;
-    int pos = 0;
     if ((f = fopen(database_name, "r+")) == NULL)
     {
-        //íŒŒì¼ ì ‘ì´‰ ì˜¤ë¥˜
-        printf("ì—ëŸ¬");
+        return;
     }
     while (!feof(f))
     {
-        ptr = ftell(f);
-        fscanf(f, "%d %d %d %s", &res.id, &res.level, &res.type, &res.name);
-        if (res.id == data.id)
+
+        if (data.id == res.id)
         {
-            ptr = ftell(f) - ptr;
-            fseek(f, -ptr, SEEK_CUR);
-            fprintf(f, "\n%d %d %d %s", data.id, data.level, data.type, data.name);
             break;
         }
     }
@@ -83,7 +76,7 @@ int userdata_name_test(char name[name_length])
 {
     if ((f = fopen(database_name, "r")) == NULL)
     {
-        //íŒŒì¼ ì ‘ì´‰ ì˜¤ë¥˜
+        //ÆÄÀÏ Á¢ÃË ¿À·ù
         return 0;
     }
     character res;
@@ -95,13 +88,14 @@ int userdata_name_test(char name[name_length])
             return -1;
         }
     }
+    fclose(f);
     return 1;
 }
 int userdata_id_gen()
 {
     if ((f = fopen(database_name, "r")) == NULL)
     {
-        //íŒŒì¼ ì ‘ì´‰? ì˜¤ë¥˜, íŒŒì¼ ìƒì„±
+        //ÆÄÀÏ Á¢ÃË? ¿À·ù, ÆÄÀÏ »ı¼º
         srand(time(NULL));
         return rand() % user_size + 1;
     }
@@ -116,6 +110,7 @@ int userdata_id_gen()
         pos++;
     }
     target = random_id(id_array);
+    fclose(f);
     return target;
 }
 character userdata_load_char(char name[name_length])
@@ -123,8 +118,9 @@ character userdata_load_char(char name[name_length])
     character data, res;
     if ((f = fopen(database_name, "r")) == NULL)
     {
-        //íŒŒì¼ ì ‘ì´‰ ì˜¤ë¥˜
+        //ÆÄÀÏ Á¢ÃË ¿À·ù
         strcpy(data.name, "error_open");
+        fclose(f);
         return data;
     }
     while (!feof(f))
@@ -139,15 +135,17 @@ character userdata_load_char(char name[name_length])
         }
     }
     fclose(f);
-    //ë°ì´í„° ë¡œë“œ ì‹¤íŒ¨
+    //µ¥ÀÌÅÍ ·Îµå ½ÇÆĞ
     if (strcmp(data.name, name) != 0)
     {
         strcpy(data.name, "not_load");
+        fclose(f);
         return data;
     }
-    //ë°ì´í„° ë¡œë“œ ì„±ê³µ
+    //µ¥ÀÌÅÍ ·Îµå ¼º°ø
     if (strcmp(data.name, name) == 0)
     {
+        fclose(f);
         return data;
     }
 }
