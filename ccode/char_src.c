@@ -5,7 +5,7 @@ character new_or_load_char()
     char select[4];
     while (1)
     {
-        printf("ÇÃ·¹ÀÌ ÇÏ´ø Ä³¸¯ÅÍ°¡ ÀÖ½À´Ï±î?(yes or no) : ");
+        printf("ê¸°ì¡´ì— í”Œë ˆì´í•˜ë˜ ìºë¦­í„°ê°€ ìˆìŠµë‹ˆê¹Œ? (yes or no)");
         scanf("%s", select);
         if ((0 == (strcmp(select, "yes"))) || (0 == (strcmp(select, "no"))))
         {
@@ -14,18 +14,18 @@ character new_or_load_char()
         else
         {
             remove_data(data);
-            printf("Àß¸øµÈ ÀÔ·ÂÀÔ´Ï´Ù.\n");
+            printf("ì˜ëª»ëœ ì…ë ¥ì…ë‹ˆë‹¤.\n");
         }
     }
     if ((0 == strcmp(select, "no")))
     {
 
-        printf("Ä³¸¯ÅÍÀÇ ÀÌ¸§À» ÀÔ·ÂÇÏ½Ã¿À : ");
+        printf("ìºë¦­í„° ì´ë¦„ì„ ì…ë ¥í•˜ì‹œì˜¤ : ");
         scanf("%s", &data.name);
         while (userdata_name_test(data.name) == -1)
         {
-            printf("ÀÌ¹Ì ÀÖ´Â ÀÌ¸§ÀÔ´Ï´Ù.\n");
-            printf("Ä³¸¯ÅÍÀÇ ÀÌ¸§À» ÀÔ·ÂÇÏ½Ã¿À : ");
+            printf("í• ìˆ˜ ì—†ëŠ” ì´ë¦„ì…ë‹ˆë‹¤.\n");
+            printf("ìºë¦­í„° ì´ë¦„ì„ ì…ë ¥í•˜ì‹œì˜¤ : ");
             scanf("%s", &data.name);
         }
         data.id = userdata_id_gen();
@@ -36,14 +36,14 @@ character new_or_load_char()
     }
     else if ((0 == strcmp(select, "yes")))
     {
-        printf("Ä³¸¯ÅÍÀÇ ÀÌ¸§À» ÀÔ·ÂÇÏ½Ã¿À : ");
+        printf("ìºë¦­í„° ì´ë¦„ì„ ì…ë ¥í•˜ì‹œì˜¤ : ");
         scanf("%s", data.name);
         data = userdata_load_char(data.name);
         printf("id : %d\n", data.id);
         printf("name : %s\n", data.name);
         printf("level : %d\n", data.level);
         printf("type : %d\n", data.type);
-        printf("·¹º§ º¯°æ : ");
+        printf("ë³€ê²½í•  ë ˆë²¨ì„ ì…ë ¥í•˜ì‹œì˜¤ : ");
         scanf(" %d", &data.level);
         printf("debug : %d", data.level);
         userdata_save(data);

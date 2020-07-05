@@ -2,4 +2,5 @@
 
 void start_setting()
 {
+    printf("가나다.");
 }

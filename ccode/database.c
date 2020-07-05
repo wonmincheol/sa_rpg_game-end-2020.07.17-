@@ -1,6 +1,6 @@
 #include "header/header.h"
-//µ¥ÀÌÅÍ À¯Çü
-//id, ÀÌ¸§, level, type
+//ìœ ì € ë°ì´í„° ì •ë³´
+//id, ì´ë¦„, level, type
 char database_name[] = "userdata.txt";
 FILE *f;
 int id = -1;
@@ -15,7 +15,7 @@ void userdata_save(character data)
     FILE *fileres = 0;
     if ((f = fopen(database_name, "r+")) == NULL)
     {
-        //ÆÄÀÏ Á¢ÃË ¿À·ù
+        //íŒŒì¼ì“°ê¸°ëª¨ë“œ
         if ((fileres = fopen(database_name, "w+")) == NULL)
         {
             printf("gene_error");
@@ -26,7 +26,7 @@ void userdata_save(character data)
             printf("gene_error2");
         }
     }
-    //°ÔÀÓ Áßµµ ÀúÀå½Ã º¯°æ¹æ¾È Ãß°¡
+    //íŒŒì¼ ì €ì¥
     fseek(f, 0, SEEK_SET);
     while (!feof(f))
     {
@@ -76,7 +76,7 @@ int userdata_name_test(char name[name_length])
 {
     if ((f = fopen(database_name, "r")) == NULL)
     {
-        //ÆÄÀÏ Á¢ÃË ¿À·ù
+        //ì˜¤ë¥˜ ì‘ë™
         return 0;
     }
     character res;
@@ -95,7 +95,7 @@ int userdata_id_gen()
 {
     if ((f = fopen(database_name, "r")) == NULL)
     {
-        //ÆÄÀÏ Á¢ÃË? ¿À·ù, ÆÄÀÏ »ı¼º
+        //ì˜¤ë¥˜ì‘ë™
         srand(time(NULL));
         return rand() % user_size + 1;
     }
@@ -118,7 +118,7 @@ character userdata_load_char(char name[name_length])
     character data, res;
     if ((f = fopen(database_name, "r")) == NULL)
     {
-        //ÆÄÀÏ Á¢ÃË ¿À·ù
+        //íŒŒì¼ ì˜¤ë¥˜
         strcpy(data.name, "error_open");
         fclose(f);
         return data;
@@ -135,14 +135,12 @@ character userdata_load_char(char name[name_length])
         }
     }
     fclose(f);
-    //µ¥ÀÌÅÍ ·Îµå ½ÇÆĞ
     if (strcmp(data.name, name) != 0)
     {
         strcpy(data.name, "not_load");
         fclose(f);
         return data;
     }
-    //µ¥ÀÌÅÍ ·Îµå ¼º°ø
     if (strcmp(data.name, name) == 0)
     {
         fclose(f);

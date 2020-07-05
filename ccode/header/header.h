@@ -51,3 +51,16 @@ void variety_store_scene(character data);
 void stage_scene(character data);
 //종료 화면(character)
 void exit_scene(character data);
+
+//inventory.c
+typedef struct _itemlist
+{
+    int item_id;
+    unsigned int amount;
+    struct _itemlist *next;
+} itemlist;
+void add_list(itemlist **head, itemlist **tail, itemlist data);
+void delete_list(itemlist **head, unsigned int pos);
+void between_add_list(itemlist **head, itemlist data, unsigned int pos);
+void all_list_delete(itemlist **head, itemlist **tail);
+void all_print(itemlist **head, itemlist **tail);
