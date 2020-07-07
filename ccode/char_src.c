@@ -5,7 +5,7 @@ character new_or_load_char()
     char select[4];
     while (1)
     {
-        printf("기존에 플레이하던 캐릭터가 있습니까? (yes or no)");
+        printf("기존에 플레이하던 캐릭터가 있습니까? (yes or no) : ");
         scanf("%s", select);
         if ((0 == (strcmp(select, "yes"))) || (0 == (strcmp(select, "no"))))
         {
@@ -13,7 +13,6 @@ character new_or_load_char()
         }
         else
         {
-            remove_data(data);
             printf("잘못된 입력입니다.\n");
         }
     }

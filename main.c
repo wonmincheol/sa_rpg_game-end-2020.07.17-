@@ -1,5 +1,5 @@
 #include "ccode/header/header.h"
-
+#define debug_mode_NULL
 int main()
 {
     system("chcp 65001");
@@ -16,6 +16,9 @@ int main()
     main_character = new_or_load_char();
     system("pause");
     system("cls");
+
+//아이템리스트 함수테스트
+#ifdef debug_mode_itemlist
     while (1)
     {
         printf("모드를 선택하시오(1 : 일반추가 2 : 중간추가 3 : 삭제 4: 전부삭제 5 : 전부출력 6 : 끝) : ");
@@ -61,6 +64,8 @@ int main()
         system("pause");
         system("cls");
     }
+#endif
+
     system("pause");
     return 0;
 }

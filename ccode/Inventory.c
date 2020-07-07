@@ -43,14 +43,6 @@ void delete_list(itemlist **head, itemlist **tail, unsigned int pos)
         (head_res)->next = ((head_res)->next)->next;
     }
     free(target);
-
-    // while (pos - 2)
-    // {
-    //     head_res = head_res->next;
-    //     pos--;
-    // }
-    // target = head_res->next;
-    // head_res->next = (target)->next;
 }
 //pos는 1이상이여야 한다.
 void between_add_list(itemlist **head, itemlist data, unsigned int pos)

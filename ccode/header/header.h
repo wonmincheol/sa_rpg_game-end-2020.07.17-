@@ -59,8 +59,13 @@ typedef struct _itemlist
     unsigned int amount;
     struct _itemlist *next;
 } itemlist;
+//**head **tail data
 void add_list(itemlist **head, itemlist **tail, itemlist data);
+//**head **tail pos
 void delete_list(itemlist **head, itemlist **tail, unsigned int pos);
+//**head **tail pos
 void between_add_list(itemlist **head, itemlist data, unsigned int pos);
+//**head **tail
 void all_list_delete(itemlist **head, itemlist **tail);
+//**head **tail
 void all_print(itemlist **head, itemlist **tail);
