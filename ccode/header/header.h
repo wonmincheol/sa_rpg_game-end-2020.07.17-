@@ -60,7 +60,7 @@ typedef struct _itemlist
     struct _itemlist *next;
 } itemlist;
 void add_list(itemlist **head, itemlist **tail, itemlist data);
-void delete_list(itemlist **head, unsigned int pos);
+void delete_list(itemlist **head, itemlist **tail, unsigned int pos);
 void between_add_list(itemlist **head, itemlist data, unsigned int pos);
 void all_list_delete(itemlist **head, itemlist **tail);
 void all_print(itemlist **head, itemlist **tail);

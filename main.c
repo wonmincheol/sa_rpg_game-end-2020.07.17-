@@ -44,7 +44,7 @@ int main()
             all_print(&head, &tail);
             printf("삭제번호 : ");
             scanf(" %u", &pos);
-            delete_list(&head, pos);
+            delete_list(&head, &tail, pos);
         }
         if (direct == 4)
         {
